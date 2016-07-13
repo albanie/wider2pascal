@@ -1,8 +1,8 @@
 function visualizeWider(widerRootDir, partition)
 %VISUALIZEWIDER displays WIDER images with annotations
-%   VISUALIZEWIDER(widerRootDir) generates figures that
-%   display the bounding box annotations provided with
-%   the WIDER faces database
+%   VISUALIZEWIDER(widerRootDir, partition) generates 
+%   figures that display the bounding box annotations 
+%   provided with the WIDER faces database
 %
 %   `widerRootDir` - a path to the WIDER dataset (contains
 %       subfolders called WIDER_train, WIDER_val, WIDER_test
