@@ -1,7 +1,9 @@
-function generatePascalXML(imgName, bboxList, targetName)
+function generatePascalXML(imgDir, imgName, bboxList, targetName)
 %GENERATEPASCALXML a Pascal VOC syntax annotation generator
 %   GENERATEPASCALXML(IMGNAME, BBOXLIST, TARGETNAME) generates
 %   Pascal VOC compatible XML annotations where
+%
+%   `imgDir` is the path of img to get metadata
 %
 %   `imgName` is the name of the image file (to be stored in the
 %       xml annotation.
@@ -90,6 +92,27 @@ sourceElem.appendChild(annotationElem);
 elem = docNode.createElement('owner');
 docRootNode.appendChild(elem);
 
+% size element
+sizeElem = docNode.createElement('size');
+% get metadata from image
+immeta = imfinfo(imgDir);
+% store width
+elem = docNode.createElement('width');
+elem.appendChild...
+    (docNode.createTextNode(sprintf('%s', immeta.Width)));
+sizeElem.appendChild(elem);
+% store height
+elem = docNode.createElement('height');
+elem.appendChild...
+    (docNode.createTextNode(sprintf('%s', immeta.Height)));
+sizeElem.appendChild(elem);
+% store depth, assume 3
+elem = docNode.createElement('depth');
+elem.appendChild...
+    (docNode.createTextNode(sprintf('%s', 3)));
+sizeElem.appendChild(elem);
+docRootNode.appendChild(sizeElem);
+
 % name element
 ownerNameElem = docNode.createElement('name');
 ownerNameElem.appendChild...
@@ -141,6 +164,7 @@ for i = 1:size(bboxList, 1)
     elem.appendChild...
         (docNode.createTextNode(sprintf('%d', round(ymax))));
     bboxElem.appendChild(elem);
+    clc
 end
 
 xmlwrite(targetName, docNode);
