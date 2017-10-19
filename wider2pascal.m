@@ -67,11 +67,13 @@ for i = 1: numel(partitionData.event_list)
     % loop over the images associated with each event
     for j = 1:numel(files)
         imgName = strcat(files{j}, '.jpg');
+        imgDir = fullfile(widerRootDir, sprintf('WIDER_%s', partition), 'images', partitionData.event_list{i}, strcat(files{j}, '.jpg'));
         annotationFileName = fullfile(annotationsDir, ...
             strcat(files{j}, '.xml'));
-        generatePascalXML(imgName, bboxList{j}, annotationFileName);
+        generatePascalXML(imgDir, imgName, bboxList{j}, annotationFileName);
     end
 end
+clc
 
 %-------------------------------------------------------------------
 function copyImages(widerRootDir, jpegImagesDir, partition)
@@ -106,6 +108,7 @@ for i = 1: numel(partitionData.event_list)
         copyfile(imgPaths{j}, jpegImagesDir);
     end
 end
+clc
 
 %-------------------------------------------------------------------
 function generateImageSets(widerRootDir, imageSetsDir, partition)
@@ -132,3 +135,4 @@ for i = 1:numel(files)
     fprintf(fileID, '%s\n', files{i});
 end
 fclose(fileID);
+clc
