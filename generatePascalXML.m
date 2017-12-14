@@ -89,8 +89,8 @@ annotationElem.appendChild...
 sourceElem.appendChild(annotationElem);
 
 % owner element
-elem = docNode.createElement('owner');
-docRootNode.appendChild(elem);
+% elem = docNode.createElement('owner');
+% docRootNode.appendChild(elem);
 
 % size element
 sizeElem = docNode.createElement('size');
@@ -99,25 +99,25 @@ immeta = imfinfo(imgDir);
 % store width
 elem = docNode.createElement('width');
 elem.appendChild...
-    (docNode.createTextNode(sprintf('%s', immeta.Width)));
+    (docNode.createTextNode(sprintf('%d', immeta.Width)));
 sizeElem.appendChild(elem);
 % store height
 elem = docNode.createElement('height');
 elem.appendChild...
-    (docNode.createTextNode(sprintf('%s', immeta.Height)));
+    (docNode.createTextNode(sprintf('%d', immeta.Height)));
 sizeElem.appendChild(elem);
 % store depth, assume 3
 elem = docNode.createElement('depth');
 elem.appendChild...
-    (docNode.createTextNode(sprintf('%s', 3)));
+    (docNode.createTextNode(sprintf('%d', 3)));
 sizeElem.appendChild(elem);
 docRootNode.appendChild(sizeElem);
 
 % name element
-ownerNameElem = docNode.createElement('name');
-ownerNameElem.appendChild...
-    (docNode.createTextNode(sprintf('%s', ownerName)));
-elem.appendChild(ownerNameElem);
+% ownerNameElem = docNode.createElement('name');
+% ownerNameElem.appendChild...
+%     (docNode.createTextNode(sprintf('%s', ownerName)));
+% elem.appendChild(ownerNameElem);
 
 % Loop over bounding boxes to produce annotations
 for i = 1:size(bboxList, 1)
@@ -166,6 +166,5 @@ for i = 1:size(bboxList, 1)
     bboxElem.appendChild(elem);
     clc
 end
-
 xmlwrite(targetName, docNode);
 type(targetName);
